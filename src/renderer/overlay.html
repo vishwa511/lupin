@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+  <title>Lupine</title>
+  <style>
+    :root {
+      --pill-bg: rgba(24, 20, 36, 0.92);
+      --pill-text: #f4f0ff;
+      --listening: #b48cff;
+      --transcribing: #7fc8ff;
+      --error: #ff7a7a;
+    }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+      font: 500 13px/1 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      user-select: none;
+    }
+    .pill {
+      box-sizing: border-box;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 16px;
+      border-radius: 24px;
+      background: var(--pill-bg);
+      color: var(--pill-text);
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--listening);
+      animation: pulse 1s ease-in-out infinite;
+    }
+    .pill[data-status="transcribing"] .dot { background: var(--transcribing); animation-duration: 0.5s; }
+    .pill[data-status="error"] .dot { background: var(--error); animation: none; }
+    .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.7); opacity: 0.6; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="pill" data-status="listening">
+    <span class="dot"></span>
+    <span class="label">Listening…</span>
+  </div>
+  <script src="overlay.js"></script>
+</body>
+</html>

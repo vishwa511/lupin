@@ -1,0 +1,46 @@
+{
+  "name": "lupine",
+  "productName": "Lupine",
+  "version": "0.1.0",
+  "description": "Hold Fn, speak, release: local Whisper dictation that pastes into the active app.",
+  "main": "src/main/main.js",
+  "private": true,
+  "scripts": {
+    "build:helper": "mkdir -p bin && swiftc -O native/fn-helper.swift -o bin/lupine-fn-helper",
+    "start": "npm run build:helper && electron .",
+    "build": "npm run build:helper && electron-builder --mac dir",
+    "dist": "npm run build:helper && electron-builder --mac dmg",
+    "test": "node --test test/*.test.js",
+    "test:integration": "npm run build:helper && electron test/integration/run.js",
+    "test:all": "npm test && npm run test:integration"
+  },
+  "devDependencies": {
+    "electron": "44.9.3",
+    "electron-builder": "26.17.0"
+  },
+  "build": {
+    "appId": "dev.lupine.dictation",
+    "productName": "Lupine",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      { "from": "bin/lupine-fn-helper", "to": "bin/lupine-fn-helper" },
+      { "from": "models/ggml-base.en.bin", "to": "models/ggml-base.en.bin" }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": ["dir", "dmg"],
+      "identity": "-",
+      "hardenedRuntime": false,
+      "extendInfo": {
+        "LSUIElement": true,
+        "NSMicrophoneUsageDescription": "Lupine records your voice while you hold Fn so it can transcribe it on this Mac."
+      }
+    }
+  }
+}
