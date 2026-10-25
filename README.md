@@ -1,4 +1,6 @@
-# Lupine ✿
+# Lupine
+
+<img src="build/icon.png" alt="Lupine icon" width="128">
 
 Hold **Fn**, speak, release — Lupine transcribes your voice locally with Whisper and pastes the
 text wherever your cursor is. Nothing leaves your Mac.
@@ -32,7 +34,7 @@ Fn released ──► 16 kHz WAV ──► whisper-cli + ggml-base.en ──► 
    - **Accessibility** for the app you launched from (e.g. Terminal), which the Fn helper
      inherits. Lupine retries every 2 s, so no restart is needed after granting.
 
-A ✿ appears in the menu bar; its menu shows permission status and the last error.
+The Lupine wolf appears in the menu bar; its menu shows permission status and the last error.
 
 ## Build a Mac app
 
@@ -50,7 +52,7 @@ Packaging uses [electron-builder](https://www.electron.build/) (free, MIT). The 
 
 ### Run the packaged app
 
-1. Quit any running Lupine first (✿ → Quit Lupine) — only one copy runs at a time.
+1. Quit any running Lupine first (menu-bar wolf → Quit Lupine) — only one copy runs at a time.
 2. Open it (or drag it into `/Applications` first):
 
    ```bash
@@ -69,6 +71,17 @@ Packaging uses [electron-builder](https://www.electron.build/) (free, MIT). The 
   System Settings → Privacy & Security and grant it again.
 - **Sharing with others:** without an Apple Developer ID ($99/year) other Macs show an
   "unidentified developer" warning (open with right-click → Open). Signing + notarization removes it.
+
+### Icons
+
+The logo lives in `assets/logo-source.webp`. After replacing it, regenerate the icons with:
+
+```bash
+npm run icons
+```
+
+This writes `build/icon.png` (1024 px app icon on Apple's grid, glow and shadow trimmed) and
+`assets/tray.png` / `assets/tray@2x.png` (menu-bar icon). Then run `npm run build` again.
 
 ## Cost
 

@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "build:helper": "mkdir -p bin && swiftc -O native/fn-helper.swift -o bin/lupine-fn-helper",
+    "icons": "swift tools/make-icons.swift",
     "start": "npm run build:helper && electron .",
     "build": "npm run build:helper && electron-builder --mac dir",
     "dist": "npm run build:helper && electron-builder --mac dmg",
@@ -26,6 +27,8 @@
     },
     "files": [
       "src/**/*",
+      "assets/tray.png",
+      "assets/tray@2x.png",
       "package.json"
     ],
     "extraResources": [
@@ -34,6 +37,7 @@
     ],
     "mac": {
       "category": "public.app-category.productivity",
+      "icon": "build/icon.png",
       "target": ["dir", "dmg"],
       "identity": "-",
       "hardenedRuntime": false,

@@ -57,8 +57,12 @@ function start() {
   app.dock?.hide();
   allowOnlyOwnMicrophoneRequests();
 
-  tray = new Tray(nativeImage.createEmpty());
-  tray.setTitle('✿');
+  // createFromPath also picks up tray@2x.png for Retina menu bars.
+  const trayImage = nativeImage.createFromPath(path.join(__dirname, '..', '..', 'assets', 'tray.png'));
+  tray = new Tray(trayImage);
+  if (trayImage.isEmpty()) {
+    tray.setTitle('✿');
+  }
   tray.setToolTip('Lupine — hold Fn to dictate');
   refreshTray();
 
